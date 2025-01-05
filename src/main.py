@@ -5,6 +5,7 @@ from typing import Dict
 import asyncio
 import signal
 from contextlib import AsyncExitStack
+from datetime import datetime
 
 from market_data.historical import HistoricalDataClient
 from market_data.streaming import MarketDataStream
@@ -17,6 +18,7 @@ from analysis.signal_combiner import SignalCombiner
 from trading.execution import TradeExecutor
 from risk_management.position_sizing import PositionSizer
 from risk_management.stop_loss import StopLossChecker
+from metrics.performance import PerformanceMetrics
 
 class TradingSystem:
     def __init__(self, api_key: str, secret_key: str, initial_investment: float = 0):
@@ -39,6 +41,7 @@ class TradingSystem:
         self.trade_executor = TradeExecutor(self.trading_client)
         self.position_sizer = PositionSizer(initial_investment)
         self.stop_loss_checker = StopLossChecker()
+        self.metrics = PerformanceMetrics()
         
         self.logger = logging.getLogger(__name__)
         self.trading_symbols = {}
@@ -88,6 +91,9 @@ class TradingSystem:
             current_price = float(position.current_price)
             entry_price = float(position.avg_entry_price)
             
+            # Update position metrics
+            self.metrics.update_position(symbol, current_price, float(position.qty))
+            
             symbol_data = (self.core_portfolio.holdings.get(symbol) or 
                          self.trading_symbols.get(symbol))
             
@@ -101,6 +107,8 @@ class TradingSystem:
             
             if exit_signal:
                 await self.trade_executor.execute_trade(symbol, 0)
+                self.metrics.log_trade(symbol, entry_price, current_price, 
+                                     float(position.qty), datetime.now(), exit_signal)
                 self.logger.info(f"{exit_signal} triggered for {symbol}")
                 return
                 
@@ -158,6 +166,11 @@ class TradingSystem:
                 
                 while self.is_running:
                     await asyncio.sleep(1)
+                    
+                    # Log daily performance
+                    if self._is_end_of_day():
+                        metrics = self.metrics.calculate_metrics()
+                        self.logger.info(f"Daily performance metrics: {metrics}")
                     
         except Exception as e:
             self.logger.error(f"Strategy execution error: {e}")
