@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Dict, List
 import pandas as pd
+import logging
 from pathlib import Path
 
 @dataclass
@@ -69,14 +70,14 @@ class PerformanceMetrics:
 
     @staticmethod
     def setup_logging():
-        log_dir = Path("logs")
+        log_dir = Path("/app/logs")
         log_dir.mkdir(exist_ok=True)
         
         logging.basicConfig(
             level=logging.INFO,
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
             handlers=[
-                logging.FileHandler(f"logs/trading_{datetime.now().strftime('%Y%m%d')}.log"),
+                logging.FileHandler(f"/app/logs/trading_{datetime.now().strftime('%Y%m%d')}.log"),
                 logging.StreamHandler()
             ]
         )
