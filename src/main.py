@@ -179,13 +179,14 @@ class TradingSystem:
             await self.cleanup()
 
 if __name__ == "__main__":
+    initial_investment = 13000 # the initial investement in USD
     api_key = os.environ.get("API_KEY")
     secret_key = os.environ.get("API_SECRET")
     
     if not api_key or not secret_key:
         raise ValueError("API_KEY and API_SECRET environment variables must be set")
     
-    trading_system = TradingSystem(api_key, secret_key)
+    trading_system = TradingSystem(api_key, secret_key, initial_investment)
     
     try:
         asyncio.run(trading_system.run())
