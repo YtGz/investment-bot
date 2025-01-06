@@ -21,11 +21,11 @@ from risk_management.stop_loss import StopLossChecker
 from metrics.performance import PerformanceMetrics
 
 class TradingSystem:
-    def __init__(self, api_key: str, secret_key: str, initial_investment: float = 0):
+    def __init__(self, api_key: str, secret_key: str, paper_trading: bool, initial_investment: float = 0):
         self.config = TradingConfig()
         
         # Initialize clients
-        self.trading_client = TradingClient(api_key, secret_key, paper=True)
+        self.trading_client = TradingClient(api_key, secret_key, paper=paper_trading)
         self.historical_data = HistoricalDataClient(api_key, secret_key)
         self.market_stream = MarketDataStream(api_key, secret_key)
         
@@ -187,7 +187,8 @@ if __name__ == "__main__":
     if not api_key or not secret_key:
         raise ValueError("API_KEY and API_SECRET environment variables must be set")
     
-    trading_system = TradingSystem(api_key, secret_key, initial_investment)
+    is_dev = os.getenv('ENV', 'dev') == 'dev'
+    trading_system = TradingSystem(api_key, secret_key, paper_trading=is_dev, initial_investment)
     
     try:
         asyncio.run(trading_system.run())
