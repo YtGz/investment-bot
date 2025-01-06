@@ -4,9 +4,11 @@ An automated trading system focused on Argentine stocks using momentum and mean 
 
 ## How to Use
 
-### Development
+### Paper Trading
 
 Create a new token for the alpaca trading bot machine user in [Infisical](https://infisical.datawarp.dev/org/35374e20-0b45-4a16-afd4-7ea72161ab8a/identities/3879a90a-53df-4c01-894b-988c2a911cd5) (cf. step 2 of https://infisical.com/docs/documentation/platform/identities/token-auth#guide).
+
+If you want to create a short-lived container that will react to code changes:
 
 ```fish
 fish --private
@@ -14,12 +16,22 @@ set -gx INFISICAL_TOKEN_TRADING_BOT <token>
 docker compose -f docker-compose.dev.yml watch
 ```
 
+If you want to create a long-lived container with which you can track performance in a paper trading environment:
+
+```fish
+fish --private
+set -gx INFISICAL_TOKEN_TRADING_BOT <token>
+docker compose -f docker-compose.dev.yml up -d --build
+```
+
 ### Production
+
+Create a new token for the alpaca trading bot machine user in [Infisical](https://infisical.datawarp.dev/org/35374e20-0b45-4a16-afd4-7ea72161ab8a/identities/3879a90a-53df-4c01-894b-988c2a911cd5) (cf. step 2 of https://infisical.com/docs/documentation/platform/identities/token-auth#guide).
 
 ```
 fish --private
 set -gx INFISICAL_TOKEN_TRADING_BOT <token>
-docker compose -f docker-compose.prod.yml up --build
+docker compose -f docker-compose.prod.yml up -d --build
 ```
 
 ## Project Structure
