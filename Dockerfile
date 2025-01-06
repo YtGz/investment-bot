@@ -22,10 +22,7 @@ RUN apt-get update && apt-get install -y bash curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN useradd -m app
-USER app
-
-COPY --from=builder --chown=app:app /app /app
+COPY --from=builder /app /app
 
 ENV PATH="/app/.venv/bin:$PATH"
 ENV PYTHONPATH="/app/src:$PYTHONPATH"
