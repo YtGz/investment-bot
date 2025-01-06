@@ -188,7 +188,7 @@ if __name__ == "__main__":
         raise ValueError("API_KEY and API_SECRET environment variables must be set")
     
     is_dev = os.getenv('ENV', 'dev') == 'dev'
-    trading_system = TradingSystem(api_key, secret_key, paper_trading=is_dev, initial_investment)
+    trading_system = TradingSystem(api_key, secret_key, is_dev, initial_investment)
     
     try:
         asyncio.run(trading_system.run())
