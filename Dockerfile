@@ -22,11 +22,7 @@ RUN apt-get update && apt-get install -y bash curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-COPY entrypoint.sh /app/entrypoint.sh
-RUN chmod +x /app/entrypoint.sh
 RUN useradd -m app
-RUN chown -R app:app /app
-
 USER app
 
 COPY --from=builder --chown=app:app /app /app
@@ -34,4 +30,4 @@ COPY --from=builder --chown=app:app /app /app
 ENV PATH="/app/.venv/bin:$PATH"
 ENV PYTHONPATH="/app/src:$PYTHONPATH"
 
-CMD ["/app/entrypoint.sh"]
+CMD infisical run --projectId $INFISICAL_PROJECT_ID --env $ENV -- python -m src.main
