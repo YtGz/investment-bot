@@ -24,8 +24,9 @@ RUN apt-get update && apt-get install -y bash curl && \
 
 COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
-
 RUN useradd -m app
+RUN chown -R app:app /app
+
 USER app
 
 COPY --from=builder --chown=app:app /app /app
