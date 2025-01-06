@@ -30,4 +30,4 @@ COPY --from=builder --chown=app:app /app /app
 ENV PATH="/app/.venv/bin:$PATH"
 ENV PYTHONPATH="/app/src:$PYTHONPATH"
 
-CMD infisical run --projectId $INFISICAL_PROJECT_ID --env $ENV -- python /app/src/main
+CMD infisical run --projectId $INFISICAL_PROJECT_ID --env $ENV -- python /app/src/main.py
