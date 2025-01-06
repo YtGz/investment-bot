@@ -43,6 +43,7 @@ class TradingSystem:
         self.stop_loss_checker = StopLossChecker()
         self.metrics = PerformanceMetrics()
         
+        PerformanceMetrics.setup_logging()
         self.logger = logging.getLogger(__name__)
         self.trading_symbols = {}
         self.is_running = False

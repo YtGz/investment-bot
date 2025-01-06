@@ -21,6 +21,10 @@ class PerformanceMetrics:
     daily_returns: Dict[datetime, float] = field(default_factory=dict)
     positions: Dict[str, Dict] = field(default_factory=dict)
 
+    def __init__(self):
+        self.setup_logging()
+        self.logger = logging.getLogger(__name__)
+
     def log_trade(self, symbol: str, entry_price: float, exit_price: float, 
                   quantity: float, timestamp: datetime, exit_reason: str):
         trade = {
@@ -61,3 +65,17 @@ class PerformanceMetrics:
         rolling_max = cumulative.expanding().max()
         drawdowns = cumulative - rolling_max
         return drawdowns.min()
+
+    @staticmethod
+    def setup_logging():
+        log_dir = Path("logs")
+        log_dir.mkdir(exist_ok=True)
+        
+        logging.basicConfig(
+            level=logging.INFO,
+            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+            handlers=[
+                logging.FileHandler(f"logs/trading_{datetime.now().strftime('%Y%m%d')}.log"),
+                logging.StreamHandler()
+            ]
+        )
