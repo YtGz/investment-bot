@@ -179,8 +179,11 @@ class TradingSystem:
             await self.cleanup()
 
 if __name__ == "__main__":
-    api_key = "YOUR_API_KEY"
-    secret_key = "YOUR_SECRET_KEY"
+    api_key = os.environ.get("API_KEY")
+    secret_key = os.environ.get("API_SECRET")
+    
+    if not api_key or not secret_key:
+        raise ValueError("API_KEY and API_SECRET environment variables must be set")
     
     trading_system = TradingSystem(api_key, secret_key)
     

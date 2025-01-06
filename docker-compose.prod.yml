@@ -1,0 +1,10 @@
+services:
+  trading_bot:
+    build: .
+    environment:
+      - ENV=prod
+      - INFISICAL_TOKEN=${INFISICAL_TOKEN}
+      - INFISICAL_API_URL="https://infisical.datawarp.dev"
+      - INFISICAL_PROJECT_ID="c33e9242-33ba-4f8c-8f0b-3c58ddb7e2f5"
+    volumes:
+      - ./logs:/app/logs

@@ -5,5 +5,13 @@ description = "Long-term Momentum and Mean Reversion Strategy with High-Frequenc
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "alpaca-py>=0.35.0",
+    "alpaca-py",
+    "pandas",
+    "numpy",
+    "asyncio",
+    "aiohttp",
 ]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

@@ -2,6 +2,26 @@
 
 An automated trading system focused on Argentine stocks using momentum and mean reversion strategies.
 
+## How to Use
+
+### Development
+
+Create a new token for the alpaca trading bot machine user in https://infisical.datawarp.dev (cf. step 2 of https://infisical.com/docs/documentation/platform/identities/token-auth#guide).
+
+```fish
+fish --private
+set -g INFISICAL_TOKEN_TRADING_BOT <token>
+docker compose -f docker-compose.dev.yml watch
+```
+
+### Production
+
+```
+fish --private
+set -g INFISICAL_TOKEN_TRADING_BOT <token>
+docker compose -f docker-compose.prod.yml up --build
+```
+
 ## Project Structure
 
 ```
