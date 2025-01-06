@@ -10,7 +10,7 @@ Create a new token for the alpaca trading bot machine user in [Infisical](https:
 
 ```fish
 fish --private
-set -g INFISICAL_TOKEN_TRADING_BOT <token>
+set -gx INFISICAL_TOKEN_TRADING_BOT <token>
 docker compose -f docker-compose.dev.yml watch
 ```
 
@@ -18,7 +18,7 @@ docker compose -f docker-compose.dev.yml watch
 
 ```
 fish --private
-set -g INFISICAL_TOKEN_TRADING_BOT <token>
+set -gx INFISICAL_TOKEN_TRADING_BOT <token>
 docker compose -f docker-compose.prod.yml up --build
 ```
 
