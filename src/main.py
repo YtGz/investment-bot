@@ -2,6 +2,7 @@ from alpaca.trading.client import TradingClient
 import logging
 import pandas as pd
 from typing import Dict
+import os
 import asyncio
 import signal
 from contextlib import AsyncExitStack
