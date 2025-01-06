@@ -6,7 +6,7 @@ An automated trading system focused on Argentine stocks using momentum and mean 
 
 ### Development
 
-Create a new token for the alpaca trading bot machine user in https://infisical.datawarp.dev (cf. step 2 of https://infisical.com/docs/documentation/platform/identities/token-auth#guide).
+Create a new token for the alpaca trading bot machine user in [Infisical](https://infisical.datawarp.dev/org/35374e20-0b45-4a16-afd4-7ea72161ab8a/identities/3879a90a-53df-4c01-894b-988c2a911cd5) (cf. step 2 of https://infisical.com/docs/documentation/platform/identities/token-auth#guide).
 
 ```fish
 fish --private
