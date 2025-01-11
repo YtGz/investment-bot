@@ -69,7 +69,7 @@ class TradingSystem:
         sector_counts = {}
         
         for symbol in self.trading_candidates.candidates.keys():
-            if not self.historical_data.check_liquidity(symbol):
+            if not self.historical_data.check_liquidity(symbol, min_volume=self.config.min_daily_volume):
                 continue
                 
             data = self.historical_data.get_bars(symbol)
