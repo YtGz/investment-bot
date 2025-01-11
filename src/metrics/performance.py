@@ -28,13 +28,14 @@ class PerformanceMetrics:
         self.logger = logging.getLogger(__name__)
 
     def log_trade(self, symbol: str, entry_price: float, exit_price: float, 
-                  quantity: float, timestamp: datetime, exit_reason: str):
+                  quantity: float, timestamp: datetime, exit_reason: str, fees: float = 0):
         trade = {
             'symbol': symbol,
             'entry_price': entry_price,
             'exit_price': exit_price,
             'quantity': quantity,
-            'pnl': (exit_price - entry_price) * quantity,
+            'pnl': (exit_price - entry_price) * quantity - fees,
+            'fees': fees,
             'timestamp': timestamp,
             'exit_reason': exit_reason
         }

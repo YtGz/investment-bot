@@ -7,6 +7,7 @@ class TradeExecutor:
     def __init__(self, trading_client: TradingClient):
         self.trading_client = trading_client
         self.order_creator = OrderCreator()
+        self.fee_calculator = FeeCalculator()
         self.logger = logging.getLogger(__name__)
 
     async def execute_trade(self, symbol: str, target_position: float):
