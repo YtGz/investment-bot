@@ -14,3 +14,9 @@ class MarketDataStream:
         except Exception as e:
             self.logger.error(f"Streaming error: {e}")
             raise
+
+    async def close(self):
+        try:
+            await self.stream_client.close()
+        except Exception as e:
+            self.logger.error(f"Error closing stream: {e}")
